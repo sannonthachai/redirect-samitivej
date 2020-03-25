@@ -1,5 +1,6 @@
 const { ajax, AjaxRequest, AjaxResponse, AjaxError, AjaxTimeoutError } = rxjs.ajax
 const { bufferCount, isEmpty, startWith, scan, concatMap, debounceTime,throttleTime,takeWhile, takeUntil, map, merge,pipe, take, skip, retryWhen, tap, delay, first, switchMap, mergeMap,exhaustMap, mapTo, catchError, finalize, filter, repeat,retry} = rxjs.operators
+const loc = window.location
 
 window.onload = function() {
     const liffId = "1653967927-1bRA3K3P";   // change the default LIFF value if you are not using a node server
@@ -39,7 +40,7 @@ window.onload = function() {
 function fetchAPI(mid) {
     return ajax({
         method: "GET",
-        url: `https://01829bdc.ngrok.io/test?mid=${mid}`,
+        url: `${loc.protocol}//${loc.host}/test?mid=${mid}`,
         headers: { 'Content-Type': 'application/json' },
     })
 }
