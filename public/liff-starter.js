@@ -4,6 +4,9 @@ const loc = window.location
 
 window.onload = function() {
     const liffId = "1653967927-1bRA3K3P";   // change the default LIFF value if you are not using a node server
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString);
+    const redirectURL = urlParams.get('liffRedirectUri')
 
     liff
     .init({
@@ -20,7 +23,7 @@ window.onload = function() {
 
                 let mid = profile.userId
                 
-                fetchAPI(mid)
+                fetchAPI(redirectURL, mid)
                 .pipe(
                     map(({response}) =>  response)
                 )
@@ -37,10 +40,10 @@ window.onload = function() {
     });
 }
 
-function fetchAPI(mid) {
+function fetchAPI(redirectURL, mid) {
     return ajax({
         method: "GET",
-        url: `${loc.protocol}//${loc.host}/test?mid=${mid}`,
+        url: `${loc.protocol}//${loc.host}/${redirectURL}?mid=${mid}`,
         headers: { 'Content-Type': 'application/json' },
     })
 }
